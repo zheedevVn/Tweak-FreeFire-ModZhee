@@ -1,0 +1,10 @@
+Package: com.zheedev.modmenu
+Name: Zhee Mod Menu (Free Fire)
+Depends: mobilesubstrate
+Version: 2.1
+Architecture: iphoneos-arm64
+Description: Free Fire Mod Menu iOS - Developed by Zhee Dev (Hồ Đức Minh)
+Maintainer: Zhee Dev <minhbach251207@gmail.com>
+Author: Zhee Dev (Hồ Đức Minh)
+Section: Tweaks
+Homepage: https://github.com/zheedevVn

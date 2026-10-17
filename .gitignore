@@ -1,0 +1,19 @@
+# OS & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Theos build artifacts
+.theos/
+packages/
+obj/
+*.deb
+*.dylib
+*.dSYM/
+
+# Large game dumps & binaries (exceeds GitHub limits)
+UnityFramework
+dump.cs
+global-metadata.dat
+ZheeOffsets.txt

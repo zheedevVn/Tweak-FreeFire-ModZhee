@@ -1,0 +1,60 @@
+name: Build Zhee Mod Menu (iOS)
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build .deb & .dylib
+    runs-on: macos-14
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Build Tools (ldid & dpkg)
+        run: |
+          brew install ldid dpkg
+
+      - name: Install Theos
+        run: |
+          git clone --recursive https://github.com/theos/theos.git ~/theos
+
+      - name: Setup iOS SDK
+        run: |
+          curl -LO https://github.com/theos/sdks/archive/master.zip
+          unzip -q master.zip
+          cp -r sdks-master/*.sdk ~/theos/sdks/ || true
+          rm -rf master.zip sdks-master
+          ls -la ~/theos/sdks/
+
+      - name: Compile Tweak (.deb & .dylib)
+        run: |
+          export THEOS=~/theos
+          export PATH="$THEOS/bin:$PATH"
+          make clean package FINALPACKAGE=1
+
+      - name: Locate Built Files
+        run: |
+          echo "=== Built Packages ==="
+          ls -la packages/ || true
+          echo "=== Built Dylibs ==="
+          find .theos/ -name "*.dylib" -exec ls -la {} + || true
+
+      - name: Upload .deb Package
+        uses: actions/upload-artifact@v4
+        with:
+          name: ZheeModMenu-deb
+          path: packages/*.deb
+
+      - name: Upload .dylib Binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: ZheeModMenu-dylib
+          path: .theos/obj/**/*.dylib
+        continue-on-error: true
