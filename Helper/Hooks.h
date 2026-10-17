@@ -10,35 +10,34 @@ bool CheckWall1 = false;
 
 struct Vars_t
 {
-    bool Enable = {};
-    bool AimbotEnable = {};
-    bool Aimbot = {};
+    bool Enable = true;
+    bool AimbotEnable = true;
+    bool Aimbot = true;
     bool ShowFovCircle = true;
    
     float AimFov = 360.0f;
     int AimCheck = {};
-    bool ESPCount = {};
+    bool ESPCount = true;
     int AimType = {};
     int AimWhen = 3;
     int AimMode = 2;
-    bool isAimFov = {};
+    bool isAimFov = true;
     int AimHitbox = 0; 
     const char* aimHitboxes[3] = {"Head", "Neck", "Body"};
-    const char *dir[4] = {"None", "Fire", "Scope", "Bắn và Ngắm"};
-    const char *aimModes[3] = {"Aim 360°", "Aim 180°", "AimFov"};
-    bool VisibleCheck = true;
-    bool lines = {};
-    bool Box = {};
-    bool Outline = {};
-    bool Name = {};
-    bool Health = {};
-    bool Distance = {};
+    const char *dir[4] = {"None", "Fire", "Scope", "Ban & Ngam"};
+    const char *aimModes[3] = {"Aim 360", "Aim 180", "AimFov"};
+    bool VisibleCheck = false;
+    bool lines = true;
+    bool Box = true;
+    bool Outline = true;
+    bool Name = true;
+    bool Health = true;
+    bool Distance = true;
     bool fovaimglow = {};
-   // AimTarget Target = HEAD;
     bool circlepos = {};
-    bool skeleton = {};
+    bool skeleton = true;
     bool OOF = {};
-    bool enemycount = {};
+    bool enemycount = true;
     float fovLineColor[4] = {1.0f, 1.0f, 1.0f, 1.0f};
     ImVec4 boxColor = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
     float AimSpeed = 10.0f;
@@ -107,36 +106,37 @@ game_sdk_t *game_sdk = new game_sdk_t();
 void game_sdk_t::init()
 {
     // =========================================================
-    // Offsets extracted from ZDC dump.cs (com.dts.freefireth)
+    // Accurate Offsets from ZDC dump.cs (com.dts.freefireth)
+    // Target: COW.GamePlay.Player & COW.GamePlay.JMAGGLCNGIG
     // Date: 2026-10-17 | By: Zhee Dev (Hồ Đức Minh)
     // =========================================================
-    this->GetHp = (int (*)(void *))getRealOffset(oxo("0x71559a0"));
-    this->Curent_Match = (void *(*)())getRealOffset(oxo("0x591b898"));
-    this->GetLocalPlayer = (void *(*)(void *))getRealOffset(oxo("0x15e2a1c"));
-    this->GetHeadPositions = (void *(*)(void *))getRealOffset(oxo("0x56ca948"));
-    this->get_position = (Vector3(*)(void *))getRealOffset(oxo("0x8d6c250"));
-    this->Component_GetTransform = (void *(*)(void *))getRealOffset(oxo("0x1764ca0"));
-    this->get_camera = (void *(*)())getRealOffset(oxo("0x8cff0b4"));
+    this->GetHp = (int (*)(void *))getRealOffset(oxo("0x56aa7c8")); // Player.get_CurHP()
+    this->Curent_Match = (void *(*)())getRealOffset(oxo("0x591b898")); // GameFacade.CurrentMatch()
+    this->GetLocalPlayer = (void *(*)(void *))getRealOffset(oxo("0x5969054")); // JMAGGLCNGIG.IKKLCLKFBHM()
+    this->GetHeadPositions = (void *(*)(void *))getRealOffset(oxo("0x56ca948")); // Player.GetHeadTF()
+    this->get_position = (Vector3(*)(void *))getRealOffset(oxo("0x8d6c250")); // get_position_Injected
+    this->Component_GetTransform = (void *(*)(void *))getRealOffset(oxo("0x1764ca0")); // Component.get_transform
+    this->get_camera = (void *(*)())getRealOffset(oxo("0x8cff0b4")); // Camera.get_main()
 
-    this->WorldToViewpoint = (Vector3(*)(void*, Vector3, int))getRealOffset(oxo("0x8cfe5c0"));
+    this->WorldToViewpoint = (Vector3(*)(void*, Vector3, int))getRealOffset(oxo("0x8cfe6c0")); // Camera.WorldToViewportPoint()
 
-    this->get_isVisible = (bool (*)(void *))getRealOffset(oxo("0x13f9f60"));
+    this->get_isVisible = (bool (*)(void *))getRealOffset(oxo("0x563b10c")); // Player.IsVisible()
 
-    this->get_isLocalTeam = (bool (*)(void *))getRealOffset(oxo("0x6877e54"));
+    this->get_isLocalTeam = (bool (*)(void *))getRealOffset(oxo("0x5655f1c")); // Player.IsLocalTeammate()
 
-    this->get_IsDieing = (bool (*)(void *))getRealOffset(oxo("0x561c768"));
+    this->get_IsDieing = (bool (*)(void *))getRealOffset(oxo("0x561c768")); // Player.get_IsDieing()
 
-    this->get_MaxHP = (int (*)(void *))getRealOffset(oxo("0x715cc44"));
+    this->get_MaxHP = (int (*)(void *))getRealOffset(oxo("0x561b6e8")); // Player.MaxHpShowValue()
 
-    this->GetForward = (Vector3(*)(void *))getRealOffset(oxo("0x8d4cd08"));
+    this->GetForward = (Vector3(*)(void *))getRealOffset(oxo("0x8d4cd08")); // Transform.get_forward()
 
-    this->set_aim = (void (*)(void *, Quaternion))getRealOffset(oxo("0x6af3920"));
+    this->set_aim = (void (*)(void *, Quaternion))getRealOffset(oxo("0x6af3920")); // Transform.set_localRotation()
 
-    this->get_IsSighting = (bool (*)(void *))getRealOffset(oxo("0x5629c84"));
+    this->get_IsSighting = (bool (*)(void *))getRealOffset(oxo("0x5629c84")); // Player.get_IsSighting()
 
-    this->get_IsFiring = (bool (*)(void *))getRealOffset(oxo("0x56200f0"));
+    this->get_IsFiring = (bool (*)(void *))getRealOffset(oxo("0x56200f0")); // Player.IsFiring()
 
-    this->name = (monoString * (*)(void *player)) getRealOffset(oxo("0x7143098"));
+    this->name = (monoString * (*)(void *player)) getRealOffset(oxo("0x5630f10")); // Player.get_NickName()
 
     this->_GetHeadPositions = (void *(*)(void *))getRealOffset(oxo("0x56ca948"));
     this->_newHipMods = (void *(*)(void *))getRealOffset(oxo("0x56caaf8"));
@@ -369,6 +369,9 @@ void *GetClosestEnemy()
         if (!get_MatchGame)
             return NULL;
         void *LocalPlayer = game_sdk->GetLocalPlayer(get_MatchGame);
+        if (!LocalPlayer && get_MatchGame) {
+            LocalPlayer = *(void **)((uint64_t)get_MatchGame + 0xd8);
+        }
         if (!LocalPlayer || !game_sdk->Component_GetTransform(LocalPlayer))
             return NULL;
         if (!Vars.Enable)
@@ -430,6 +433,9 @@ void *GetClosestEnemysilent()
             return NULL;
 
         void *LocalPlayer = game_sdk->GetLocalPlayer(get_MatchGame);
+        if (!LocalPlayer && get_MatchGame) {
+            LocalPlayer = *(void **)((uint64_t)get_MatchGame + 0xd8);
+        }
         if (!LocalPlayer || !game_sdk->Component_GetTransform(LocalPlayer))
             return NULL;
 
@@ -663,6 +669,9 @@ void get_players()
             return;
 
         void *local_player = game_sdk->GetLocalPlayer(current_Match);
+        if (!local_player && current_Match) {
+            local_player = *(void **)((uint64_t)current_Match + 0xd8);
+        }
         if (!local_player)
             return;
 
@@ -869,6 +878,9 @@ void aimbot()
             draw_list->AddCircle(center, Vars.AimFov, ImColor(Vars.fovLineColor[0], Vars.fovLineColor[1], Vars.fovLineColor[2], Vars.fovLineColor[3]), 100);
     }
     void *LocalPlayer = game_sdk->GetLocalPlayer(Match);
+    if (!LocalPlayer && Match) {
+        LocalPlayer = *(void **)((uint64_t)Match + 0xd8);
+    }
     if (!LocalPlayer)
         return;
     void *playertarget = GetClosestEnemy();

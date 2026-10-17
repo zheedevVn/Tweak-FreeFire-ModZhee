@@ -272,7 +272,7 @@ Hook(0x4EB3E88 , BLAGCMCGEJG1, old_BLAGCMCGEJG1);
                 ImGui::TextColored(ImVec4(1.00f, 0.25f, 0.25f, 1.00f), "ZHEE MOD MENU");
                 ImGui::SameLine();
                 ImGui::TextColored(ImVec4(0.25f, 0.85f, 0.40f, 1.00f), "[ACTIVE]");
-                ImGui::TextDisabled("Free Fire iOS • v2.1 • By Zhee Dev");
+                ImGui::TextDisabled("Free Fire iOS | v2.1 | By Zhee Dev");
                 ImGui::EndGroup();
                 ImGui::Separator();
 
@@ -343,14 +343,14 @@ ImGui::SliderFloat(oxorany("##Fov"), &Vars.AimFov, 0.0f, 360.0f, oxorany("AimFov
 
                         ImGui::EndTabItem();
                     }
-                    if (ImGui::BeginTabItem(("About & Bản quyền"))) {
+                    if (ImGui::BeginTabItem(("About & Ban Quyen"))) {
                         ImGui::Spacing();
                         if (g_AvatarTexture) {
                             ImGui::Image((ImTextureID)(uintptr_t)(__bridge void*)g_AvatarTexture, ImVec2(56, 56));
                             ImGui::SameLine();
                         }
                         ImGui::BeginGroup();
-                        ImGui::TextColored(ImVec4(1.00f, 0.30f, 0.30f, 1.00f), "Hồ Đức Minh (Zhee Dev)");
+                        ImGui::TextColored(ImVec4(1.00f, 0.30f, 0.30f, 1.00f), "Ho Duc Minh (Zhee Dev)");
                         ImGui::TextColored(ImVec4(0.85f, 0.85f, 0.85f, 1.00f), "Lead Developer & Reverse Engineer");
                         ImGui::TextDisabled("Free Fire iOS Mod Specialist");
                         ImGui::EndGroup();
@@ -359,7 +359,7 @@ ImGui::SliderFloat(oxorany("##Fov"), &Vars.AimFov, 0.0f, 360.0f, oxorany("AimFov
                         ImGui::Separator();
                         ImGui::Spacing();
                         
-                        ImGui::TextColored(ImVec4(1.00f, 0.80f, 0.20f, 1.00f), "THÔNG TIN LIÊN HỆ");
+                        ImGui::TextColored(ImVec4(1.00f, 0.80f, 0.20f, 1.00f), "THONG TIN LIEN HE");
                         ImGui::BulletText("GitHub : https://github.com/zheedevVn");
                         ImGui::BulletText("Zalo   : 0944921186");
                         ImGui::BulletText("Email  : minhbach251207@gmail.com");
@@ -368,7 +368,7 @@ ImGui::SliderFloat(oxorany("##Fov"), &Vars.AimFov, 0.0f, 360.0f, oxorany("AimFov
                         ImGui::Separator();
                         ImGui::Spacing();
                         
-                        ImGui::TextColored(ImVec4(0.40f, 0.80f, 1.00f, 1.00f), "THÔNG TIN DỰ ÁN");
+                        ImGui::TextColored(ImVec4(0.40f, 0.80f, 1.00f, 1.00f), "THONG TIN DU AN");
                         ImGui::BulletText("Tweak Name : ZheeModMenu");
                         ImGui::BulletText("Package ID : com.zheedev.modmenu");
                         ImGui::BulletText("Version    : v2.1 Release");
@@ -378,9 +378,9 @@ ImGui::SliderFloat(oxorany("##Fov"), &Vars.AimFov, 0.0f, 360.0f, oxorany("AimFov
                         ImGui::Separator();
                         ImGui::Spacing();
                         
-                        ImGui::TextColored(ImVec4(0.90f, 0.30f, 0.30f, 1.00f), "BẢN QUYỀN & PHÁP LÝ");
-                        ImGui::TextWrapped("© 2026 Zhee Dev (Hồ Đức Minh). All rights reserved.");
-                        ImGui::TextDisabled("Dự án phục vụ mục đích học tập & nghiên cứu cấu trúc Il2Cpp.");
+                        ImGui::TextColored(ImVec4(0.90f, 0.30f, 0.30f, 1.00f), "BAN QUYEN & PHAP LY");
+                        ImGui::TextWrapped("(c) 2026 Zhee Dev (Ho Duc Minh). All rights reserved.");
+                        ImGui::TextDisabled("Du an phuc vu muc dich hoc tap & nghien cuu cau truc Il2Cpp.");
                         ImGui::EndTabItem();
                     }
                     ImGui::EndTabBar();
@@ -389,9 +389,9 @@ ImGui::SliderFloat(oxorany("##Fov"), &Vars.AimFov, 0.0f, 360.0f, oxorany("AimFov
                 // --- FOOTER COPYRIGHT ---
                 ImGui::Spacing();
                 ImGui::Separator();
-                ImGui::TextDisabled("© 2026 Zhee Dev (Hồ Đức Minh)");
+                ImGui::TextDisabled("(c) 2026 Zhee Dev (Ho Duc Minh)");
                 ImGui::SameLine(ImGui::GetWindowWidth() - 100);
-                ImGui::TextColored(ImVec4(0.25f, 0.85f, 0.40f, 1.00f), "v2.1 • Safe");
+                ImGui::TextColored(ImVec4(0.25f, 0.85f, 0.40f, 1.00f), "v2.1 | Safe");
 
         ImGui::End();
     }
