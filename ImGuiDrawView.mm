@@ -343,7 +343,7 @@ ImGui::SliderFloat(oxorany("##Fov"), &Vars.AimFov, 0.0f, 360.0f, oxorany("AimFov
 
                         ImGui::EndTabItem();
                     }
-                    if (ImGui::BeginTabItem(("About & Ban Quyen"))) {
+                    if (ImGui::BeginTabItem(("About"))) {
                         ImGui::Spacing();
                         if (g_AvatarTexture) {
                             ImGui::Image((ImTextureID)(uintptr_t)(__bridge void*)g_AvatarTexture, ImVec2(56, 56));
